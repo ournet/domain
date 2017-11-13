@@ -1,85 +1,38 @@
 
-import { IAnyDictionary } from '../utils';
-
-export interface ErrorDefaultData {
-    statusCode?: number
-    message?: string
-}
-
-export interface ErrorData extends ErrorDefaultData {
-    error?: Error
-    data?: IAnyDictionary
-    details?: string
-}
-
 export class OurnetError extends Error {
-    constructor(data: ErrorData, defaultData?: ErrorDefaultData) {
-        data = data || {};
-        data.message = data.message || data.error && data.error.message || defaultData && defaultData.message;
-        super(data.message);
+    constructor(message: string, public statusCode: number = 500) {
+        super(message);
 
-        if (!data.statusCode && defaultData && defaultData.statusCode) {
-            data.statusCode = defaultData.statusCode;
-        }
+        // Saving class name in the property of our custom error as a shortcut.
+        this.name = this.constructor.name;
 
-        // extending Error is weird and does not propagate `message`
-        Object.defineProperty(this, 'message', {
-            configurable: true,
-            enumerable: false,
-            value: data.message,
-            writable: true
-        });
-
-        Object.defineProperty(this, 'name', {
-            configurable: true,
-            enumerable: false,
-            value: this.constructor['name'],
-            writable: true
-        });
-
-        Object.defineProperty(this, 'data', {
-            configurable: true,
-            enumerable: false,
-            value: data,
-            writable: true
-        });
-
-        if (Error.hasOwnProperty('captureStackTrace')) {
-            Error.captureStackTrace(this, this.constructor);
-            return;
-        }
-
-        Object.defineProperty(this, 'stack', {
-            configurable: true,
-            enumerable: false,
-            value: (new Error(data.message)).stack,
-            writable: true
-        });
+        // Capturing stack trace, excluding constructor call from it.
+        Error.captureStackTrace(this, this.constructor);
     }
 }
 
 export class CodeError extends OurnetError {
-    constructor(data: ErrorData) {
-        super(data, { message: 'Code error', statusCode: 500 });
+    constructor(message: string = 'Code error', statusCode: number = 500) {
+        super(message, statusCode);
     }
 }
 
 export class DataError extends OurnetError { }
 
 export class DataConflictError extends DataError {
-    constructor(data: ErrorData) {
-        super(data, { message: 'Data conflict', statusCode: 409 });
+    constructor(message: string = 'Data conflict error', statusCode: number = 409) {
+        super(message, statusCode);
     }
 }
 
 export class DataValidationError extends DataError {
-    constructor(data: ErrorData, defaults?: ErrorDefaultData) {
-        super(data, Object.assign({ message: 'Validation error', statusCode: 400 }, defaults));
+    constructor(message: string = 'Validation error', statusCode: number = 400) {
+        super(message, statusCode);
     }
 }
 
 export class DataNotFoundError extends DataValidationError {
-    constructor(data: ErrorData) {
-        super(data, { message: 'Data not found', statusCode: 404 });
+    constructor(message: string = 'Data not found', statusCode: number = 404) {
+        super(message, statusCode);
     }
 }

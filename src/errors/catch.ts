@@ -1,10 +1,9 @@
 
 const debug = require('debug')('ournet-domain');
-import { CodeError } from './errors';
 
 export function catchError(type: any) {
     if (!type) {
-        throw new CodeError({ message: `arg 'type' is required!` });
+        throw new TypeError(`arg 'type' is required!`);
     }
 
     const typename = type.name || type.constructor && type.constructor.name;
