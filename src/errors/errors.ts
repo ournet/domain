@@ -14,6 +14,7 @@ export interface ErrorData extends ErrorDefaultData {
 
 export class OurnetError extends Error {
     constructor(data: ErrorData, defaultData?: ErrorDefaultData) {
+        data = data || {};
         data.message = data.message || data.error && data.error.message || defaultData && defaultData.message;
         super(data.message);
 
