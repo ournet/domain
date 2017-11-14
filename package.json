@@ -35,8 +35,11 @@
     "url": "https://github.com/Ournet/domain/issues"
   },
   "homepage": "https://github.com/Ournet/domain",
-  "dependencies": {},
+  "dependencies": {
+    "joi": "^13.0.2"
+  },
   "devDependencies": {
+    "@types/joi": "^13.0.0",
     "@types/node": "^8.x.x",
     "ava": "^0.23.0",
     "debug": "^3.1.0",

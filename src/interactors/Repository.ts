@@ -13,9 +13,9 @@ export interface RepUpdateOptions<T> extends RepAccessOptions<T> {
 
 }
 
-export interface RepUpdateData<ID, T> {
-    id: ID
-    update?: T
+export interface RepUpdateData<T> {
+    // id: ID
+    item: T
     delete?: (keyof T)[]
     // inc?: { [index: string]: number }
 }
@@ -35,7 +35,7 @@ export interface IRepository<ID, T> {
     exists(id: ID): Promise<boolean>
     // count(data?: RepGetData): Promise<number>
     create(data: T, options?: RepAccessOptions<T>): Promise<T>
-    update(data: RepUpdateData<ID, T>, options?: RepUpdateOptions<T>): Promise<T>
+    update(data: RepUpdateData<T>, options?: RepUpdateOptions<T>): Promise<T>
     // one(data: RepGetData, options?: RepAccessOptions): Promise<T>
     // list(data: RepListData, options?: RepAccessOptions): Promise<T[]>
 }
