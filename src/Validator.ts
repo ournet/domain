@@ -27,14 +27,6 @@ export class Validator<T> implements IValidator<T> {
         if (this.updateSchema) {
             data.item = validate(this.updateSchema, data.item, options);
         }
-        // const fields = [].concat(data.delete || []);//.concat(data.inc && Object.keys(data.inc) || []);
-        // if (fields.length) {
-        //     for (let i = 0; i < fields.length; i++) {
-        //         if (!existsTypeField(this.typeName, existsTypeField[i])) {
-        //             throw new CodeError({ message: `Unknown field ${fields[i]} for type ${this.typeName}` });
-        //         }
-        //     }
-        // }
         return data;
     }
 }
