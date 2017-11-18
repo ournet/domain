@@ -17,7 +17,7 @@
     "clean-test-code": "rm -fr ./lib/**/*.test.js && rm -fr ./types/**/*.test.d.ts"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=6.0.0"
   },
   "repository": {
     "type": "git",
