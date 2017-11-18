@@ -1,6 +1,6 @@
 
 import { UseCase } from './UseCase';
-import { IRepository } from './repository';
+import { IRepository } from './Repository';
 
 export class DeleteUseCase<ID, ENTITY> extends UseCase<ID, boolean, never>{
 

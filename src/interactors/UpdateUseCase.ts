@@ -1,6 +1,6 @@
 
 import { UseCase } from './UseCase';
-import { IRepository, RepUpdateOptions, RepUpdateData } from './repository';
+import { IRepository, RepUpdateOptions, RepUpdateData } from './Repository';
 import { IValidator } from '../Validator';
 
 export class UpdateUseCase<ID, ENTITY> extends UseCase<RepUpdateData<ENTITY>, ENTITY, RepUpdateOptions<ENTITY>>{

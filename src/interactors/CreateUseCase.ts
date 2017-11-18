@@ -1,6 +1,6 @@
 
 import { UseCase } from './UseCase';
-import { IRepository, RepAccessOptions } from './repository';
+import { IRepository, RepAccessOptions } from './Repository';
 import { IValidator } from '../Validator';
 
 
