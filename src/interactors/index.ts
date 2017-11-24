@@ -1,5 +1,5 @@
 
-export { IRepository, RepAccessOptions, RepUpdateData, RepUpdateOptions } from './Repository';
+export { IRepository, IReadRepository, RepAccessOptions, RepUpdateData, RepUpdateOptions } from './Repository';
 export { UseCase } from './UseCase';
 export { CreateUseCase } from './CreateUseCase';
 export { UpdateUseCase } from './UpdateUseCase';
