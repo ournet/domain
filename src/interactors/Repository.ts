@@ -38,9 +38,13 @@ export interface IReadRepository<ID, T> {
     // count(data?: RepGetData): Promise<number>
 }
 
-export interface IRepository<ID, T> extends IReadRepository<ID, T> {
+export interface IWriteRepository<ID, T> {
     delete(id: ID): Promise<boolean>
     create(data: T, options?: RepAccessOptions<T>): Promise<T>
     update(data: RepUpdateData<T>, options?: RepUpdateOptions<T>): Promise<T>
+}
+
+export interface IRepository<ID, T> extends IReadRepository<ID, T>, IWriteRepository<ID, T> {
+    
 }
 
