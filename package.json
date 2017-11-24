@@ -1,6 +1,6 @@
 {
   "name": "@ournet/domain",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Ournet domain",
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
@@ -12,7 +12,7 @@
     "tscw": "tsc -w",
     "preversion": "npm run tsc",
     "postversion": "git push --follow-tags",
-    "prepublishOnly": "npm run tsc && npm run clean-test-code",
+    "prepublish": "npm run tsc && npm run clean-test-code",
     "clean": "rm -fr ./lib && rm -fr ./types",
     "clean-test-code": "rm -fr ./lib/**/*.test.js && rm -fr ./types/**/*.test.d.ts"
   },
