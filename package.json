@@ -1,6 +1,6 @@
 {
   "name": "@ournet/domain",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Ournet domain",
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
