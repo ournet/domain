@@ -11,28 +11,16 @@ export abstract class WriteRepository<ID, T> implements IWriteRepository<ID, T>{
     }
 
     delete(id: ID): Promise<boolean> {
-        try {
-            id = this.validator.validate(id, WriteOperation.DELETE);
-        } catch (e) {
-            return Promise.reject(e);
-        }
-        return this.innerDelete(id);
+        return this.validator.validate(id, WriteOperation.DELETE)
+            .then(validData => this.innerDelete(validData));
     }
     create(data: T, options?: RepAccessOptions<T>): Promise<T> {
-        try {
-            data = this.validator.validate(data, WriteOperation.CREATE);
-        } catch (e) {
-            return Promise.reject(e);
-        }
-        return this.innerCreate(data, options);
+        return this.validator.validate(data, WriteOperation.CREATE)
+            .then(validData => this.innerCreate(validData, options));
     }
     update(data: RepUpdateData<T>, options?: RepUpdateOptions<T>): Promise<T> {
-        try {
-            data = this.validator.validate(data, WriteOperation.UPDATE);
-        } catch (e) {
-            return Promise.reject(e);
-        }
-        return this.innerUpdate(data, options);
+        return this.validator.validate(data, WriteOperation.UPDATE)
+            .then(validData => this.innerUpdate(validData, options));
     }
 
     protected abstract innerDelete(id: ID): Promise<boolean>

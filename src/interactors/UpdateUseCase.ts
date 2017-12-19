@@ -15,11 +15,8 @@ export class UpdateUseCase<ID, ENTITY> extends UseCase<RepUpdateData<ENTITY>, EN
 
     protected validateData(data: RepUpdateData<ENTITY>) {
         if (this.validator) {
-            try {
-                data = this.validator.validate(data, WriteOperation.UPDATE)
-            } catch (e) {
-                return Promise.reject(e);
-            }
+            return this.validator.validate(data, WriteOperation.UPDATE)
+                .then(validData => super.validateData(validData));
         }
         return super.validateData(data);
     }

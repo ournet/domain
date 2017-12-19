@@ -16,11 +16,8 @@ export class CreateUseCase<ID, ENTITY> extends UseCase<ENTITY, ENTITY, RepAccess
 
     protected validateData(data: ENTITY) {
         if (this.validator) {
-            try {
-                data = this.validator.validate(data, WriteOperation.CREATE)
-            } catch (e) {
-                return Promise.reject(e);
-            }
+            return this.validator.validate(data, WriteOperation.CREATE)
+                .then(validData => super.validateData(validData));
         }
         return super.validateData(data);
     }
