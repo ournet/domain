@@ -1,11 +1,11 @@
 
 import { UseCase } from './UseCase';
 import { IRepository, RepUpdateOptions, RepUpdateData } from './Repository';
-import { IValidator } from '../Validator';
+import { IValidator, WriteOperation } from '../Validator';
 
 export class UpdateUseCase<ID, ENTITY> extends UseCase<RepUpdateData<ENTITY>, ENTITY, RepUpdateOptions<ENTITY>>{
 
-    constructor(protected repository: IRepository<ID, ENTITY>, protected validator?: IValidator<ENTITY>) {
+    constructor(protected repository: IRepository<ID, ENTITY>, protected validator?: IValidator) {
         super();
     }
 
@@ -16,7 +16,7 @@ export class UpdateUseCase<ID, ENTITY> extends UseCase<RepUpdateData<ENTITY>, EN
     protected validateData(data: RepUpdateData<ENTITY>) {
         if (this.validator) {
             try {
-                data = this.validator.update(data)
+                data = this.validator.validate(data, WriteOperation.UPDATE)
             } catch (e) {
                 return Promise.reject(e);
             }

@@ -1,57 +1,51 @@
 
-import { ValidationOptions, ObjectSchema } from 'joi';
+import { ValidationOptions, Schema } from 'joi';
 import { DataValidationError } from './errors';
-import { RepUpdateData } from './interactors/Repository';
 
-export interface IValidator<T> {
-    create(data: T, options?: any): T
-    update(data: RepUpdateData<T>, options?: any): RepUpdateData<T>
+export enum WriteOperation {
+    DELETE = 'DELETE',
+    CREATE = 'CREATE',
+    UPDATE = 'UPDATE'
 }
 
-export interface ValidatorDataItem {
-    schema?: any
-    // fields?: string[]
+export type ValidationDataItem = {
+    operation: WriteOperation
+    /** Joi schema */
+    schema: any
 }
 
-export class Validator<T> implements IValidator<T> {
+export interface IValidator {
+    validate<T>(data: T, operation: WriteOperation, options?: any): T
+}
 
-    constructor(private createData?: ValidatorDataItem, private updateData?: ValidatorDataItem) { }
+export class Validator implements IValidator {
+    private items: ValidationDataItem[]
 
-    create(data: T, options?: any): T {
-        return this.validate(this.createData, data, options);
+    constructor(items: ValidationDataItem[]) {
+        this.items = items || [];
     }
 
-    update(data: RepUpdateData<T>, options?: any): RepUpdateData<T> {
-        if (!data) {
-            throw new DataValidationError(`'data' is required`);
-        }
-        // if (!data.item) {
-        //     throw new DataValidationError(`'data.item' is required`);
-        // }
-
-        data = this.validate(this.updateData, data, options);
-
-        return data;
+    validate<T>(data: T, operation: WriteOperation, options?: any): T {
+        return this.items.filter(item => item.operation === operation)
+            .reduce<T>((result, current) => Validator.validate(current.schema, result, options), data);
     }
 
-    private validate<DT>(itemData: ValidatorDataItem, data: DT, options?: ValidationOptions): DT {
-        if (!data) {
-            throw new DataValidationError(`'data' is required`);
-        }
-
-        if (itemData) {
-            // if (itemData.fields && itemData.fields.length) {
-            //     Object.keys(data).forEach(key => itemData.fields.indexOf(key) < 0 && delete data[key]);
-            // }
-            if (itemData.schema) {
-                return validate(itemData.schema, data, options);
-            }
-        }
-        return data;
+    static validate<DT>(data: DT, schema: any, options?: any): DT {
+        return validate<DT>(data, schema, options);
     }
 }
 
-function validate<T>(schema: ObjectSchema, data: T, options?: ValidationOptions): T {
+function validate<T>(data: T, schema: Schema, options?: ValidationOptions): T {
+    if (!schema) {
+        throw new DataValidationError(`'schema' is required`);
+    }
+    if (typeof schema.validate !== 'function') {
+        throw new DataValidationError(`'schema' is invalid`);
+    }
+    if (!data) {
+        throw new DataValidationError(`'data' is required`);
+    }
+
     options = Object.assign({
         abortEarly: true,
         convert: true,
