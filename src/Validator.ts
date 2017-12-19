@@ -8,30 +8,44 @@ export enum WriteOperation {
     UPDATE = 'UPDATE'
 }
 
-export type ValidationDataItem = {
+export type ValidationItem = {
     operation: WriteOperation
-    /** Joi schema */
-    schema: any
+    validate: <T>(data: T) => Promise<T>
 }
 
 export interface IValidator {
-    validate<T>(data: T, operation: WriteOperation, options?: any): T
+    validate<T>(data: T, operation: WriteOperation): Promise<T>
 }
 
 export class Validator implements IValidator {
-    private items: ValidationDataItem[]
+    private items: ValidationItem[]
 
-    constructor(items: ValidationDataItem[]) {
+    constructor(items: ValidationItem[]) {
         this.items = items || [];
     }
 
-    validate<T>(data: T, operation: WriteOperation, options?: any): T {
-        return this.items.filter(item => item.operation === operation)
-            .reduce<T>((result, current) => Validator.validate(current.schema, result, options), data);
+    validate<T>(data: T, operation: WriteOperation): Promise<T> {
+        const items = this.items.filter(item => item.operation === operation);
+        if (items.length === 0) {
+            return Promise.resolve(data);
+        }
+        return items.reduce<Promise<T>>((prev, current) =>
+            prev.then(result => current.validate<T>(result)), Promise.resolve(data));
     }
+}
 
-    static validate<DT>(data: DT, schema: any, options?: any): DT {
-        return validate<DT>(data, schema, options);
+export function createSchemaValidationItem(schema: any, operation: WriteOperation, options?: any): ValidationItem {
+    return {
+        operation: operation,
+        validate: function <T>(data: T): Promise<T> {
+            return new Promise((resolve, reject) => {
+                try {
+                    resolve(validate<T>(data, schema, options));
+                } catch (e) {
+                    return reject(e);
+                }
+            });
+        }
     }
 }
 
