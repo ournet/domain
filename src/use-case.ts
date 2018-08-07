@@ -1,11 +1,7 @@
 
-const debug = require('debug')('ournet-domain');
+const debug = require('debug')('ournet:domain');
 
-export interface IUseCase<DATA, RESULT, OPTIONS> {
-    execute(data: DATA, options?: OPTIONS): Promise<RESULT>
-}
-
-export abstract class UseCase<DATA, RESULT, OPTIONS> implements IUseCase<DATA, RESULT, OPTIONS> {
+export abstract class UseCase<DATA, RESULT, OPTIONS> {
 
     execute(data: DATA, options?: OPTIONS): Promise<RESULT> {
         const name = this.constructor.name;

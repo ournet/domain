@@ -1,6 +1,6 @@
 {
   "name": "@ournet/domain",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Ournet domain",
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
@@ -17,7 +17,7 @@
     "clean-test-code": "rm -fr ./lib/**/*.test.js && rm -fr ./lib/*.test.js && rm -fr ./types/**/*.test.d.ts && rm -fr ./types/*.test.d.ts"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=8.0.0"
   },
   "repository": {
     "type": "git",
@@ -35,14 +35,10 @@
     "url": "https://github.com/Ournet/domain/issues"
   },
   "homepage": "https://github.com/Ournet/domain",
-  "dependencies": {
-    "joi": "^13.0.2"
-  },
   "devDependencies": {
-    "@types/joi": "^13.0.0",
-    "@types/node": "^8.x.x",
+    "@types/node": "latest",
     "ava": "^0.23.0",
     "debug": "^3.1.0",
-    "typescript": "^2.6.1"
+    "typescript": "latest"
   }
 }

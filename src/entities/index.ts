@@ -1,2 +1,0 @@
-
-export { IEntityWiki } from './EntityWiki';

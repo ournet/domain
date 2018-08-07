@@ -1,6 +1,24 @@
 
-export { IDictionary, IAnyDictionary, IStringDictionary } from './utils';
-export * from './errors';
-export * from './entities';
-export * from './interactors';
-export { Validator, IValidator, WriteOperation, createSchemaValidationItem } from './Validator';
+export {
+    uniq,
+    mapPromise,
+    uniqByProperty,
+} from './utils';
+
+export {
+    BaseEntity,
+    BaseEntityId,
+    Dictionary,
+} from './entities';
+
+export {
+    UseCase,
+} from './use-case';
+
+export {
+    ReadRepository,
+    WriteRepository,
+    Repository,
+    RepositoryAccessOptions,
+    RepositoryUpdateData,
+} from './repository';
