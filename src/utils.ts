@@ -11,8 +11,20 @@ export function sha1(value: string): string {
     return createHash('sha1').update(value, 'utf8').digest('hex').toLowerCase();
 }
 
-export function normalizeUrl(url: string): string {
-    return normalizeUrlFn(url, {
+export type NormalizeUrlOptions = {
+    normalizeProtocol?: boolean
+    normalizeHttps?: true
+    normalizeHttp?: false
+    stripFragment?: true
+    stripWWW?: true
+    removeQueryParameters?: boolean | (string | RegExp)[]
+    removeTrailingSlash?: boolean
+    removeDirectoryIndex?: boolean
+    sortQueryParameters?: boolean
+}
+
+export function normalizeUrl(url: string, options?: NormalizeUrlOptions): string {
+    return normalizeUrlFn(url, options || {
         normalizeProtocol: true,
         normalizeHttps: true,
         normalizeHttp: false,
