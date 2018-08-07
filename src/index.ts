@@ -22,3 +22,7 @@ export {
     RepositoryAccessOptions,
     RepositoryUpdateData,
 } from './repository';
+
+export {
+    TextHelper
+} from './text-helper';

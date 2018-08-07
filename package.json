@@ -40,5 +40,8 @@
     "ava": "^0.23.0",
     "debug": "^3.1.0",
     "typescript": "latest"
+  },
+  "dependencies": {
+    "atonic": "^1.0.4"
   }
 }
