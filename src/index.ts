@@ -3,6 +3,9 @@ export {
     uniq,
     mapPromise,
     uniqByProperty,
+    normalizeUrl,
+    md5,
+    sha1,
 } from './utils';
 
 export {

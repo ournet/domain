@@ -1,4 +1,30 @@
 
+const normalizeUrlFn = require('normalize-url');
+
+import { createHash } from "crypto";
+
+export function md5(value: string): string {
+    return createHash('md5').update(value, 'utf8').digest('hex').toLowerCase();
+}
+
+export function sha1(value: string): string {
+    return createHash('sha1').update(value, 'utf8').digest('hex').toLowerCase();
+}
+
+export function normalizeUrl(url: string): string {
+    return normalizeUrlFn(url, {
+        normalizeProtocol: true,
+        normalizeHttps: true,
+        normalizeHttp: false,
+        stripFragment: true,
+        stripWWW: true,
+        removeQueryParameters: [/^utm_\w+/i],
+        removeTrailingSlash: true,
+        removeDirectoryIndex: false,
+        sortQueryParameters: true,
+    });
+}
+
 export function uniq<T>(items: T[]) {
     return items.filter((value, index, self) => self.indexOf(value) === index);
 }
