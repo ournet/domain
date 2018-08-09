@@ -29,3 +29,7 @@ export {
 export {
     TextHelper
 } from './text-helper';
+
+export {
+    EntityValidator,
+} from './entity-validator';
