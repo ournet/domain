@@ -6,7 +6,11 @@ export {
     normalizeUrl,
     md5,
     sha1,
-} from './utils';
+    atonic,
+    cleanText,
+    countWords,
+    isAbbr,
+} from './helpers';
 
 export {
     BaseEntity,
@@ -25,10 +29,6 @@ export {
     RepositoryAccessOptions,
     RepositoryUpdateData,
 } from './repository';
-
-export {
-    TextHelper
-} from './text-helper';
 
 export {
     EntityValidator,
