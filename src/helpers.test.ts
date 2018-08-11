@@ -1,6 +1,6 @@
 
 import test from 'ava';
-import { uniq, uniqByProperty, mapPromise, isAbbr, cleanText, countWords } from './helpers';
+import { uniq, uniqByProperty, mapPromise, isAbbr, clearText, countWords } from './helpers';
 
 
 test('uniq', t => {
@@ -26,12 +26,12 @@ test('#isAbbr', t => {
     t.is(isAbbr('189 & 9'), false, '189 & 9 not abbreviation')
 })
 
-test('#cleanText', t => {
-    t.is(cleanText('Async (node)'), 'Async node')
-    t.is(cleanText('iPhone #5'), 'iPhone 5')
-    t.is(cleanText('iPhone & -= &&'), 'iPhone')
-    t.is(cleanText('iPhone $^@^%*#^*(#()*#_*_)(@_)(@ &+-iPad'), 'iPhone iPad')
-    t.is(cleanText(`This is a super, super text:)
+test('#clearText', t => {
+    t.is(clearText('Async (node)'), 'Async node')
+    t.is(clearText('iPhone #5'), 'iPhone 5')
+    t.is(clearText('iPhone & -= &&'), 'iPhone')
+    t.is(clearText('iPhone $^@^%*#^*(#()*#_*_)(@_)(@ &+-iPad'), 'iPhone iPad')
+    t.is(clearText(`This is a super, super text:)
     * No?`), 'This is a super super text No')
 })
 

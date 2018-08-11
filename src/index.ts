@@ -7,7 +7,7 @@ export {
     md5,
     sha1,
     atonic,
-    cleanText,
+    clearText,
     countWords,
     isAbbr,
 } from './helpers';
