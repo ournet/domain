@@ -1,4 +1,9 @@
 
+import * as Joi from 'joi';
+export {
+    Joi
+}
+
 export {
     uniq,
     mapPromise,
@@ -33,3 +38,7 @@ export {
 export {
     EntityValidator,
 } from './entity-validator';
+
+export {
+    BaseRepository,
+} from './base-repository';
