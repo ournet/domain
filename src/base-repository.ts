@@ -7,11 +7,11 @@ export abstract class BaseRepository<T extends BaseEntity> implements Repository
 
     async create(data: T) {
         data = this.validator.onCreate(data);
-        return await this.innerUpdate(data);
+        return this.innerCreate(data);
     }
     async update(data: RepositoryUpdateData<T>) {
         data = this.validator.onUpdate(data);
-        return await this.innerUpdate(data);
+        return this.innerUpdate(data);
     }
 
     abstract innerCreate(data: T): Promise<T>
