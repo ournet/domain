@@ -28,8 +28,6 @@ export {
 } from './use-case';
 
 export {
-    ReadRepository,
-    WriteRepository,
     Repository,
     RepositoryAccessOptions,
     RepositoryUpdateData,

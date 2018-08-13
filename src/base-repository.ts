@@ -3,7 +3,6 @@ import { Repository, RepositoryUpdateData, RepositoryAccessOptions } from "./rep
 import { EntityValidator } from "./entity-validator";
 
 export abstract class BaseRepository<T extends BaseEntity> implements Repository<T> {
-
     constructor(private validator: EntityValidator<T>) { }
 
     async create(data: T) {
@@ -22,4 +21,7 @@ export abstract class BaseRepository<T extends BaseEntity> implements Repository
     abstract getById(id: BaseEntityId, options?: RepositoryAccessOptions<T>): Promise<T | null>
     abstract getByIds(ids: BaseEntityId[], options?: RepositoryAccessOptions<T>): Promise<T[]>
     abstract exists(id: BaseEntityId): Promise<boolean>
+
+    abstract deleteStorage(): Promise<void>
+    abstract createStorage(): Promise<void>
 }
