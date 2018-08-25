@@ -3,15 +3,23 @@ import { Repository, RepositoryUpdateData, RepositoryAccessOptions } from "./rep
 import { EntityValidator } from "./entity-validator";
 
 export abstract class BaseRepository<T extends BaseEntity> implements Repository<T> {
-    constructor(private validator: EntityValidator<T>) { }
+    constructor(protected validator: EntityValidator<T>) { }
 
     async create(data: T) {
-        data = this.validator.onCreate(data);
+        data = this.beforeCreate(data);
         return this.innerCreate(data);
     }
     async update(data: RepositoryUpdateData<T>) {
-        data = this.validator.onUpdate(data);
+        data = this.beforeUpdate(data);
         return this.innerUpdate(data);
+    }
+
+    protected beforeCreate(data: T) {
+        return this.validator.onCreate(data);
+    }
+
+    protected beforeUpdate(data: RepositoryUpdateData<T>) {
+        return this.validator.onUpdate(data);
     }
 
     abstract innerCreate(data: T): Promise<T>

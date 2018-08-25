@@ -1,10 +1,10 @@
 import { BaseEntity } from "./entities";
 import { RepositoryUpdateData } from "./repository";
-import { validate as joiSchemaValidate, SchemaMap } from 'joi';
+import { validate as joiSchemaValidate, SchemaLike } from 'joi';
 
 export interface EntityValidatorOptions {
-    createSchema: SchemaMap
-    updateSchema: SchemaMap
+    createSchema: SchemaLike
+    updateSchema: SchemaLike
 }
 
 export class EntityValidator<T extends BaseEntity> {
@@ -26,7 +26,7 @@ export class EntityValidator<T extends BaseEntity> {
     }
 }
 
-function validateSchema<T>(schema: SchemaMap, data: T) {
+function validateSchema<T>(schema: SchemaLike, data: T) {
     return joiSchemaValidate<T>(data, schema, {
         allowUnknown: false,
         abortEarly: true,
