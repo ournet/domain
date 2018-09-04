@@ -14,10 +14,10 @@ export function sha1(value: string): string {
 
 export type NormalizeUrlOptions = {
     normalizeProtocol?: boolean
-    normalizeHttps?: true
-    normalizeHttp?: false
-    stripFragment?: true
-    stripWWW?: true
+    normalizeHttps?: boolean
+    normalizeHttp?: boolean
+    stripFragment?: boolean
+    stripWWW?: boolean
     removeQueryParameters?: boolean | (string | RegExp)[]
     removeTrailingSlash?: boolean
     removeDirectoryIndex?: boolean
@@ -25,16 +25,18 @@ export type NormalizeUrlOptions = {
 }
 
 export function normalizeUrl(url: string, options?: NormalizeUrlOptions): string {
-    return normalizeUrlFn(url, options || {
-        normalizeProtocol: true,
-        normalizeHttps: true,
-        normalizeHttp: false,
-        stripFragment: true,
-        stripWWW: true,
-        removeQueryParameters: [/^utm_\w+/i],
-        removeTrailingSlash: true,
-        removeDirectoryIndex: false,
-        sortQueryParameters: true,
+    return normalizeUrlFn(url, {
+        ...options, ...{
+            normalizeProtocol: true,
+            normalizeHttps: true,
+            normalizeHttp: false,
+            stripFragment: true,
+            stripWWW: true,
+            removeQueryParameters: [/^(utm_\w+|fbrefresh)$/i],
+            removeTrailingSlash: true,
+            removeDirectoryIndex: false,
+            sortQueryParameters: true,
+        }
     });
 }
 
