@@ -121,3 +121,23 @@ export function getWeekNumber(d: Date): number {
 
     return weekNo;
 }
+
+/**
+ * The maximum is exclusive and the minimum is inclusive
+ * @param min Minimum number inclusive
+ * @param max Maximum number explusive
+ */
+export function getRandomInt(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
+/**
+ * The maximum is inclusive and the minimum is inclusive
+ * @param min Minimum number inclusive
+ * @param max Maximum number inclusive
+ */
+export function getRandomIntInclusive(min: number, max: number) {
+    return getRandomInt(min, max + 1);
+}

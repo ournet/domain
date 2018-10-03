@@ -11,6 +11,8 @@ export {
     countWords,
     isAbbr,
     getWeekNumber,
+    getRandomInt,
+    getRandomIntInclusive,
 } from './helpers';
 
 export {
