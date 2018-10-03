@@ -10,6 +10,7 @@ export {
     clearText,
     countWords,
     isAbbr,
+    getWeekNumber,
 } from './helpers';
 
 export {

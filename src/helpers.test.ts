@@ -1,6 +1,6 @@
 
 import test from 'ava';
-import { uniq, uniqByProperty, mapPromise, isAbbr, clearText, countWords } from './helpers';
+import { uniq, uniqByProperty, mapPromise, isAbbr, clearText, countWords, getWeekNumber } from './helpers';
 
 
 test('uniq', t => {
@@ -41,4 +41,8 @@ test('#countWords', t => {
     t.is(countWords('Ștefan'), 1)
     t.is(countWords('iPhone 2'), 2)
     t.is(countWords(''), 0)
+})
+
+test('#getWeekNumber', t => {
+    t.is(getWeekNumber(new Date(2018, 9, 3)), 40)
 })
