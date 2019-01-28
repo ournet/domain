@@ -13,6 +13,7 @@ export {
     getWeekNumber,
     getRandomInt,
     getRandomIntInclusive,
+    unixTime,
 } from './helpers';
 
 export {

@@ -32,7 +32,7 @@ export function normalizeUrl(url: string, options?: NormalizeUrlOptions): string
             normalizeHttp: false,
             stripFragment: true,
             stripWWW: true,
-            removeQueryParameters: [/^(utm_\w+|fbrefresh)$/i],
+            removeQueryParameters: [/^(utm_\w+|fbrefresh|fbclid)$/i],
             removeTrailingSlash: true,
             removeDirectoryIndex: false,
             sortQueryParameters: true,
@@ -140,4 +140,8 @@ export function getRandomInt(min: number, max: number) {
  */
 export function getRandomIntInclusive(min: number, max: number) {
     return getRandomInt(min, max + 1);
+}
+
+export function unixTime(date?: Date) {
+    return Math.floor((date || new Date()).getTime() / 1000);
 }
