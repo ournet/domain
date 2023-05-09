@@ -1,6 +1,6 @@
 const atonicFn = require("atonic");
-const normalizeUrlFn = require("normalize-url");
 
+import normalizeUrlFn from "normalize-url";
 import { createHash } from "crypto";
 
 export function md5(value: string): string {
@@ -13,8 +13,10 @@ export function sha1(value: string): string {
 
 export type NormalizeUrlOptions = {
   normalizeProtocol?: boolean;
-  normalizeHttps?: boolean;
-  normalizeHttp?: boolean;
+  // normalizeHttps?: boolean;
+  // normalizeHttp?: boolean;
+  forceHttps: true;
+  forceHttp: false;
   stripFragment?: boolean;
   stripWWW?: boolean;
   removeQueryParameters?: boolean | (string | RegExp)[];
@@ -31,9 +33,9 @@ export function normalizeUrl(
     ...options,
     ...{
       normalizeProtocol: true,
-      normalizeHttps: true,
-      normalizeHttp: false,
-      stripFragment: true,
+      forceHttps: true,
+      forceHttp: false,
+      stripTextFragment: true,
       stripWWW: true,
       removeQueryParameters: [/^(utm_\w+|fbrefresh|fbclid)$/i],
       removeTrailingSlash: true,
