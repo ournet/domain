@@ -1,6 +1,6 @@
 const atonicFn = require("atonic");
 
-import normalizeUrlFn from "normalize-url";
+const normalizeUrlFn = require("normalize-url");
 import { createHash } from "crypto";
 
 export function md5(value: string): string {

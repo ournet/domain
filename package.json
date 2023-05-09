@@ -1,6 +1,6 @@
 {
   "name": "@ournet/domain",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Ournet domain",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -45,6 +45,6 @@
   "dependencies": {
     "atonic": "^1.0.4",
     "joi": "^14.0.3",
-    "normalize-url": "^8.0.0"
+    "normalize-url": "^4.5.1"
   }
 }
